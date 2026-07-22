@@ -1,11 +1,11 @@
-import './globals.css'
-import Navbar from '@/components/Navbar'
-import SessionProvider from '@/components/SessionProvider'
+import "./globals.css";
+import NavbarWrapper from "@/components/NavbarWrapper";
+import SessionProvider from "@/components/SessionProvider";
 
 export const metadata = {
-  title: 'Supellex',
-  description: 'Your premium ecommerce destination',
-}
+  title: "Supellex",
+  description: "Your premium ecommerce destination",
+};
 
 export default function RootLayout({ children }) {
   return (
@@ -24,10 +24,10 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <SessionProvider>
-          <Navbar />
+          <NavbarWrapper />
           {children}
         </SessionProvider>
       </body>
     </html>
-  )
+  );
 }

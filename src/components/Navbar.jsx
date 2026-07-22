@@ -1,20 +1,20 @@
-'use client'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useSession, signOut } from 'next-auth/react'
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
 
 const NAV_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'Shop', href: '/shop' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-]
+  { label: "Home", href: "/" },
+  { label: "Shop", href: "/shop" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
 
 export default function Navbar() {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent">
+    <nav className="absolute top-0 left-0 w-full z-50 bg-transparent">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Left — Logo */}
         <div className="flex items-center">
@@ -43,7 +43,7 @@ export default function Navbar() {
             </li>
           ))}
           {/* Show admin link if admin */}
-          {session?.user?.role === 'admin' && (
+          {session?.user?.role === "admin" && (
             <li>
               <Link
                 href="/admin"
@@ -59,7 +59,7 @@ export default function Navbar() {
         <div className="flex items-center gap-5">
           {session ? (
             <button
-              onClick={() => signOut({ callbackUrl: '/' })}
+              onClick={() => signOut({ callbackUrl: "/" })}
               className="text-white text-sm font-[450] hover:text-white/80 transition-colors"
             >
               Sign Out
@@ -84,5 +84,5 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
-  )
+  );
 }
