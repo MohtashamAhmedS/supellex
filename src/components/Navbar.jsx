@@ -5,16 +5,22 @@ import { useSession, signOut } from "next-auth/react";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Shop", href: "/shop" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Shop", href: "#shop" },
+  { label: "About", href: "#about" },
+  { label: "Contact", href: "#contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ theme = "light" }) {
   const { data: session } = useSession();
 
+  const isDark = theme === "dark";
+
   return (
-    <nav className="absolute top-0 left-0 w-full z-50 bg-transparent">
+    <nav
+      className={`absolute top-0 left-0 w-full z-50 transition-colors duration-300 ${
+        isDark ? "bg-transparent" : "bg-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Left — Logo */}
         <div className="flex items-center">
@@ -24,7 +30,7 @@ export default function Navbar() {
               alt="Logo"
               width={120}
               height={40}
-              className="object-contain"
+              className={`object-contain ${isDark ? "" : "invert"}`}
               priority
             />
           </Link>
@@ -36,18 +42,25 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-white hover:text-white/80 text-sm font-[450] tracking-wide transition-colors duration-200"
+                className={`text-sm font-[450] tracking-wide transition-colors duration-200 ${
+                  isDark
+                    ? "text-gray-800 hover:text-black"
+                    : "text-white hover:text-white/80"
+                }`}
               >
                 {link.label}
               </Link>
             </li>
           ))}
-          {/* Show admin link if admin */}
           {session?.user?.role === "admin" && (
             <li>
               <Link
                 href="/admin"
-                className="text-yellow-400 hover:text-yellow-300 text-sm font-[450] tracking-wide transition-colors duration-200"
+                className={`text-sm font-[450] tracking-wide transition-colors duration-200 ${
+                  isDark
+                    ? "text-yellow-600 hover:text-yellow-700"
+                    : "text-yellow-400 hover:text-yellow-300"
+                }`}
               >
                 Admin
               </Link>
@@ -60,14 +73,22 @@ export default function Navbar() {
           {session ? (
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
-              className="text-white text-sm font-[450] hover:text-white/80 transition-colors"
+              className={`text-sm font-[450] transition-colors ${
+                isDark
+                  ? "text-gray-800 hover:text-black"
+                  : "text-white hover:text-white/80"
+              }`}
             >
               Sign Out
             </button>
           ) : (
             <Link
               href="/login"
-              className="text-white text-sm font-[450] hover:text-white/80 transition-colors"
+              className={`text-sm font-[450] transition-colors ${
+                isDark
+                  ? "text-gray-800 hover:text-black"
+                  : "text-white hover:text-white/80"
+              }`}
             >
               Sign In
             </Link>
@@ -78,7 +99,9 @@ export default function Navbar() {
               alt="Cart"
               width={22}
               height={22}
-              className="opacity-90 hover:opacity-100 transition-opacity invert"
+              className={`opacity-90 hover:opacity-100 transition-opacity ${
+                isDark ? "" : "invert"
+              }`}
             />
           </Link>
         </div>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Collection() {
   const [products, setProducts] = useState([]);
@@ -53,7 +54,7 @@ export default function Collection() {
   }
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-16">
+    <section className="max-w-7xl mx-auto px-6 py-16" id="shop">
       <h2 className="text-7xl font-[410] text-black mb-10">Collection</h2>
 
       {loading ? (
@@ -67,19 +68,24 @@ export default function Collection() {
               key={product._id}
               className="group bg-gray-100 rounded-2xl p-8 flex flex-col items-center text-center shadow-[2px_2px_10px_0_rgba(0,0,0,0.25),-2px_-2px_10px_0_rgba(0,0,0,0.25)] hover:shadow-[4px_4px_20px_0_rgba(0,0,0,0.35),-4px_-4px_20px_0_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 cursor-pointer"
             >
-              <div className="w-full h-48 flex items-center justify-center mb-6">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="max-h-full max-w-full object-contain"
-                />
-              </div>
-              <p className="text-base text-gray-900 font-medium">
-                {product.name}
-              </p>
-              <p className="text-base text-gray-900 mt-1 font-[410]">
-                ${product.price}
-              </p>
+              <Link
+                href={`/products/${product._id}`}
+                className="w-full flex flex-col items-center text-center"
+              >
+                <div className="w-full h-48 flex items-center justify-center mb-6">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+                <p className="text-base text-gray-900 font-medium">
+                  {product.name}
+                </p>
+                <p className="text-base text-gray-900 mt-1 font-[410]">
+                  ${product.price}
+                </p>
+              </Link>
 
               {/* Add to Cart button */}
               <button
