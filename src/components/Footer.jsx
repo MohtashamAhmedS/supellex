@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-black text-white" id="contact">
       <div className="max-w-7xl mx-auto px-6 py-14 flex flex-col md:flex-row items-start justify-between gap-12">
         {/* Left — Brand, Address, Contact, Social */}
         <div className="flex flex-col gap-8">
@@ -90,5 +90,5 @@ export default function Footer() {
         <p className="text-sm text-white/50">Copyright@mystore</p>
       </div>
     </footer>
-  )
+  );
 }
