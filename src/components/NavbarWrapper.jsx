@@ -12,5 +12,9 @@ export default function NavbarWrapper() {
 
   if (hideNavbar) return null;
 
-  return <Navbar />;
+  // White text only on homepage (has hero background image)
+  // Dark text on all other pages
+  const theme = pathname === "/" ? "light" : "dark";
+
+  return <Navbar theme={theme} />;
 }

@@ -1,37 +1,37 @@
-'use client'
-import { useEffect, useState } from 'react'
+"use client";
+import { useEffect, useState } from "react";
 
-const STATUSES = ['pending', 'processing', 'shipped', 'delivered', 'cancelled']
+const STATUSES = ["pending", "processing", "shipped", "delivered", "cancelled"];
 
 export default function AdminOrders() {
-  const [orders, setOrders] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchOrders()
-  }, [])
+    fetchOrders();
+  }, []);
 
   async function fetchOrders() {
-    const res = await fetch('/api/admin/orders')
-    const data = await res.json()
-    setOrders(data.data || [])
-    setLoading(false)
+    const res = await fetch("/api/admin/orders");
+    const data = await res.json();
+    setOrders(data.data || []);
+    setLoading(false);
   }
 
   async function handleStatusChange(id, status) {
     const res = await fetch(`/api/admin/orders/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),
-    })
-    const data = await res.json()
-    if (data.success) fetchOrders()
-    else alert(data.message)
+    });
+    const data = await res.json();
+    if (data.success) fetchOrders();
+    else alert(data.message);
   }
 
   return (
     <div>
-      <h1 className="text-3xl font-medium mb-8">Orders</h1>
+      <h1 className="text-3xl font-medium mb-8 text-black">Orders</h1>
 
       <div className="bg-white rounded-2xl p-6 shadow-sm">
         {loading ? (
@@ -56,17 +56,19 @@ export default function AdminOrders() {
                   key={order._id}
                   className="border-b last:border-0 align-top"
                 >
-                  <td className="py-4 font-medium">
-                    {order.user?.name || 'N/A'}
+                  <td className="py-4 font-medium text-gray-500">
+                    {order.user?.name || "N/A"}
                   </td>
                   <td className="py-4 text-gray-500">
-                    {order.user?.email || 'N/A'}
+                    {order.user?.email || "N/A"}
                   </td>
                   <td className="py-4 text-gray-500">
                     {order.items.length} item(s)
                   </td>
-                  <td className="py-4">${order.totalPrice.toFixed(2)}</td>
-                  <td className="py-4">
+                  <td className="py-4 text-gray-500">
+                    ${order.totalPrice.toFixed(2)}
+                  </td>
+                  <td className="py-4 text-gray-500">
                     <select
                       value={order.status}
                       onChange={(e) =>
@@ -91,5 +93,5 @@ export default function AdminOrders() {
         )}
       </div>
     </div>
-  )
+  );
 }
